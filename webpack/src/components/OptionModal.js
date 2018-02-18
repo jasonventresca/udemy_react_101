@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 const OptionModal = (props) => (
   <Modal
     isOpen={!!props.selectedOption}
+    onRequestClose={props.handleDeselectOption}
     contentLabel="Selected Option"
   >
     <h3>Selected Option: {!!props.selectedOption && <p>{props.selectedOption}</p>}</h3>
@@ -13,5 +14,4 @@ const OptionModal = (props) => (
     >Ok</button>
   </Modal>
 );
-
 export default OptionModal;

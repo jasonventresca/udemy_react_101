@@ -23,9 +23,7 @@ export default class IndecisionApp extends React.Component {
   };
 
   handleDeselectOption = () => {
-    this.setState({
-      selectedOption: undefined
-    });
+    this.setState(() => ({ selectedOption: undefined }));
   };
 
   handlePick = () => {
