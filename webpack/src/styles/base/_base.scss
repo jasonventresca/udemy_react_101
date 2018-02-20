@@ -1,13 +1,11 @@
 html {
-  font-size: 62.5%; // By default, 1rem is 16px. Now 1rem == 10px, so it's much easier for us to think in rem's (i.e. just divide px by 10)
+  // By default, 1rem is 16px. Now 1rem == 10px, so it's much easier for us
+  // to think in rem's (i.e. just divide px by 10).
+  font-size: 62.5%;
 }
 
 body {
+  background: $dark-blue;
   font-family: Helvetica, Arial, sans-serif; // Fallback to Arial, then sans-serif
-  font-size: 1.6rem;
-}
-
-// px vs. rem: rem has better support for accessibility (i.e. they scale up/down better)
-h1 {
-  font-size: 2.2rem;
+  font-size: $m-size;
 }
