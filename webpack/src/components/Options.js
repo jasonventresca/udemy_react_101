@@ -27,10 +27,11 @@ const Options = (props) => (
       </p>
     }
     {
-      props.options.map((option) => (
+      props.options.map((option, idx) => (
         <Option
           key={option}
           optionText={option}
+          count={idx + 1}
           handleDeleteOption={props.handleDeleteOption}
         />
       ))
