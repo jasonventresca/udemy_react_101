@@ -1,0 +1,20 @@
+html {
+  // By default, 1rem is 16px. Now 1rem == 10px, so it's much easier for us
+  // to think in rem's (i.e. just divide px by 10).
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif; // Fallback to Arial, then sans-serif
+  font-size: $m-size;
+}
+
+button {
+  // The cursor looks like the clickable/hyperlink cursor when you mouse-over the button.
+  cursor: pointer;
+}
+
+button:disabled {
+  // The cursor does not indicate clickability when the button is disabled.
+  cursor: default;
+}
