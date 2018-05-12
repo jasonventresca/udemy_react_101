@@ -18,3 +18,11 @@ button:disabled {
   // The cursor does not indicate clickability when the button is disabled.
   cursor: default;
 }
+
+.header__link {
+  padding: 1rem;
+}
+
+.header__link--active {
+  font-weight: bold;
+}
