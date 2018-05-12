@@ -13,7 +13,7 @@ const Header = () => (
       exact={true}
       to="/"
     >
-      home
+      dashboard
     </NavLink>
     <NavLink
       className="header__link"
@@ -21,13 +21,6 @@ const Header = () => (
       to="/create"
     >
       create
-    </NavLink>
-    <NavLink
-      className="header__link"
-      activeClassName="header__link--active"
-      to="/edit"
-    >
-      edit
     </NavLink>
     <NavLink
       className="header__link"
