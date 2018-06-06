@@ -6,6 +6,20 @@ const incrementCount = ({ incrementBy = 1 } = {}) => ({
   incrementBy
 });
 
+const decrementCount = ({ decrementBy = 1 } = {}) => ({
+  type: 'DECREMENT',
+  decrementBy
+});
+
+const setCount = (count = 101) => ({
+  'type': 'SET',
+  count
+});
+
+const resetCount = () => ({
+  'type': 'RESET'
+});
+
 const store = createStore((state = { count: 0 }, action) => {
   console.log('running');
 
@@ -41,21 +55,10 @@ store.dispatch(incrementCount({incrementBy: 5}));
 
 store.dispatch(incrementCount());
 
-store.dispatch({
-  'type': 'RESET'
-});
+store.dispatch(resetCount());
 
-store.dispatch({
-  'type': 'DECREMENT',
-  'decrementBy': 1
-});
+store.dispatch(decrementCount());
 
-store.dispatch({
-  'type': 'DECREMENT',
-  'decrementBy': 10
-});
+store.dispatch(decrementCount(10));
 
-store.dispatch({
-  'type': 'SET',
-  'count': 101
-});
+store.dispatch(setCount(101));
