@@ -1,9 +1,46 @@
 import { createStore, combineReducers } from 'redux';
+import uuid from 'uuid';
+
+const addExpense = (
+  {
+    description = '',
+    note = '',
+    amount = 0,
+    createdAt = 0
+  } = {}
+) => ({
+  type: 'ADD_EXPENSE',
+  expense: {
+    id: uuid(),
+    description,
+    note,
+    amount,
+    createdAt
+  }
+});
+
+const removeExpense = (id) => ({
+  type: 'REMOVE_EXPENSE',
+  id
+});
+
 
 // Expenses Reducer
 const expensesReducerDefaultState = [];
 const expensesReducer = (state = expensesReducerDefaultState, action) => {
   switch (action.type) {
+    case 'ADD_EXPENSE':
+      // The following is WRONG.
+      //state.expenses.push(action.expense);
+
+      // This is the correct way to do it. Don't mutate state, just return a new one.
+      return state.concat(action.expense);
+
+    case 'REMOVE_EXPENSE':
+      return state.filter(
+        ({ id }) => id !== action.id
+      );
+
     default:
       return state;
   }
@@ -28,7 +65,28 @@ const store = createStore(combineReducers({
   filters: filtersReducer
 }));
 
-console.log(store.getState());
+const unsubscribe = store.subscribe(() => {
+  console.log(JSON.stringify(
+    store.getState(),
+    null,
+    4
+  ));
+});
+
+
+// Add rent and coffee to expenses.
+const rent = store.dispatch(addExpense({
+  description: 'Rent',
+  amount: 190000 // $1,900.00
+}));
+
+const coffee = store.dispatch(addExpense({
+  description: 'Coffee',
+  amount: 500 // $5.00
+}));
+
+// Remove coffee from expenses.
+store.dispatch(removeExpense(coffee.expense.id));
 
 const demoState = {
   expenses: [{
