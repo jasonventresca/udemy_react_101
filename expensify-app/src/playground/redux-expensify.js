@@ -1,9 +1,35 @@
 import { createStore, combineReducers } from 'redux';
+import uuid from 'uuid';
+
+const addExpense = (
+  {
+    description = '',
+    note = '',
+    amount = 0,
+    createdAt = 0
+  } = {}
+) => ({
+  type: 'ADD_EXPENSE',
+  expense: {
+    id: uuid()
+    description,
+    note,
+    amount,
+    createdAt
+  }
+});
 
 // Expenses Reducer
 const expensesReducerDefaultState = [];
 const expensesReducer = (state = expensesReducerDefaultState, action) => {
   switch (action.type) {
+    case 'ADD_EXPENSE':
+      // The following is WRONG.
+      //state.expenses.push(action.expense);
+
+      // This is the correct way to do it. Don't mutate state, just return a new one.
+      return state.concat(action.expense);
+
     default:
       return state;
   }
@@ -28,7 +54,14 @@ const store = createStore(combineReducers({
   filters: filtersReducer
 }));
 
-console.log(store.getState());
+const unsubscribe = store.subscribe(() => {
+  console.log(store.getState());
+});
+
+store.dispatch(addExpense({
+  description: 'Rent',
+  amount: 100 // $1.00
+}));
 
 const demoState = {
   expenses: [{
