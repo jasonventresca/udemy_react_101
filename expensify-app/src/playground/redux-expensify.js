@@ -1,5 +1,35 @@
 import { createStore, combineReducers } from 'redux';
 
+// Expenses Reducer
+const expensesReducerDefaultState = [];
+const expensesReducer = (state = expensesReducerDefaultState, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+const filtersReducerDefaultState = {
+  text: '',
+  sortBy: 'date', // date or amount
+  startDate: undefined,
+  endDate: undefined
+};
+const filtersReducer = (state = filtersReducerDefaultState, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+// Store creation
+const store = createStore(combineReducers({
+  expenses: expensesReducer,
+  filters: filtersReducer
+}));
+
+console.log(store.getState());
+
 const demoState = {
   expenses: [{
     id: 'aowiejfao',
@@ -10,7 +40,7 @@ const demoState = {
   }],
   filters: {
     text: 'rent',
-    sortBy: 'amount' // date or amount
+    sortBy: 'amount', // date or amount
     startDate: undefined,
     endDate: undefined
   }
