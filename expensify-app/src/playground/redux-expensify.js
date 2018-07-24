@@ -24,6 +24,17 @@ const removeExpense = (id) => ({
   id
 });
 
+const editExpense = (id, updates) => ({
+  type: 'EDIT_EXPENSE',
+  id,
+  updates
+});
+
+const setTextFilter = (text) => ({
+  type: 'SET_TEXT_FILTER',
+  text
+});
+
 
 // Expenses Reducer
 const expensesReducerDefaultState = [];
@@ -41,6 +52,18 @@ const expensesReducer = (state = expensesReducerDefaultState, action) => {
         ({ id }) => id !== action.id
       );
 
+    case 'EDIT_EXPENSE':
+      return state.map((expense) => {
+        if (expense.id === action.id) {
+          return {
+            ...expense,
+            ...action.updates
+          }
+        } else {
+          return expense;
+        }
+      });
+
     default:
       return state;
   }
@@ -54,6 +77,12 @@ const filtersReducerDefaultState = {
 };
 const filtersReducer = (state = filtersReducerDefaultState, action) => {
   switch (action.type) {
+    case 'SET_TEXT_FILTER':
+      return {
+        ...state,
+        text: action.text
+      };
+
     default:
       return state;
   }
@@ -82,11 +111,17 @@ const rent = store.dispatch(addExpense({
 
 const coffee = store.dispatch(addExpense({
   description: 'Coffee',
-  amount: 500 // $5.00
+  amount: 300 // $3.00
 }));
+
+// Coffee is now more expensive.
+store.dispatch(editExpense(coffee.expense.id, { 'amount': 500 }));
 
 // Remove coffee from expenses.
 store.dispatch(removeExpense(coffee.expense.id));
+
+store.dispatch(setTextFilter('rent'));
+store.dispatch(setTextFilter(''));
 
 const demoState = {
   expenses: [{
